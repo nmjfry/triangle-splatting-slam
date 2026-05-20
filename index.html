@@ -30,7 +30,7 @@
   --pink-soft:rgba(236,72,153,0.10);
   --blue-soft:rgba(59,130,246,0.10);
   --accent:var(--pink);
-  --max:min(70vw, 1400px);
+  --max:1080px;
   --max-prose:64ch;
 }
 *{box-sizing:border-box}
@@ -117,70 +117,45 @@ p{margin:0 auto 1em;max-width:var(--max-prose)}
 /* ---------- Hero ---------- */
 .hero{
   position:relative;
-  min-height:100vh;
-  min-height:100svh;        /* respects mobile browser chrome */
   display:flex;
   flex-direction:column;
   justify-content:flex-start;
-  padding:40px 0 100px;
+  padding:clamp(40px, 5vw, 60px) 0 48px;
   border-top:none;
   overflow:hidden;
 }
+
+/* ---------- Top triangle band ---------- */
 .hero-mesh{
   position:absolute;
   top:0;left:0;right:0;
-  height:300px;
+  height:var(--mesh-h, 300px);
   width:100%;
   pointer-events:none;
   z-index:1;
   -webkit-mask-image:
-    linear-gradient(to bottom, #000 60%, transparent 100%),
-    linear-gradient(to right, #000 0%, #000 calc(50% - var(--max)/2 - 10px), transparent calc(50% - var(--max)/2 + 30px), transparent calc(50% + var(--max)/2 - 30px), #000 calc(50% + var(--max)/2 + 10px), #000 100%);
+    linear-gradient(to bottom, transparent 0%, #000 50%, #000 85%, transparent 100%),
+    radial-gradient(
+      calc(var(--max)/2 + 120px) 140% at 50% 50%,
+      transparent 50%, #000 90%);
   mask-image:
-    linear-gradient(to bottom, #000 60%, transparent 100%),
-    linear-gradient(to right, #000 0%, #000 calc(50% - var(--max)/2 - 10px), transparent calc(50% - var(--max)/2 + 30px), transparent calc(50% + var(--max)/2 - 30px), #000 calc(50% + var(--max)/2 + 10px), #000 100%);
+    linear-gradient(to bottom, transparent 0%, #000 50%, #000 85%, transparent 100%),
+    radial-gradient(
+      calc(var(--max)/2 + 120px) 140% at 50% 50%,
+      transparent 50%, #000 90%);
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
 }
 .hero-mesh canvas{display:block;width:100%;height:100%}
 
-/* Scroll cue — pinned to the bottom of the hero */
-.scroll-cue{
-  position:absolute;
-  bottom:32px;
-  left:50%;
-  transform:translateX(-50%);
-  display:inline-flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
-  font-family:"JetBrains Mono",monospace;
-  font-size:11px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--ink-3);
-  text-decoration:none;
-  border:none;
-  cursor:pointer;
-  background:transparent;
-  padding:6px 10px;
-  z-index:3;
-  transition:color .2s ease;
-}
-.scroll-cue:hover{color:var(--ink);border:none}
-.scroll-cue svg{
-  width:16px;height:16px;
-  animation:scroll-bounce 2.2s ease-in-out infinite;
-}
-@keyframes scroll-bounce{
-  0%, 100%{transform:translateY(0); opacity:.55}
-  50%     {transform:translateY(6px); opacity:1}
-}
-@media (prefers-reduced-motion: reduce){
-  .scroll-cue svg{animation:none}
-}
 @media (max-width:640px){
-  .hero{padding-top:220px}
-  .hero-mesh{height:180px}
-  .scroll-cue{bottom:20px}
+  .hero{padding:100px 0 32px}
+  .hero-mesh{height:120px}
+  .hero-title{font-size:clamp(24px, 7vw, 32px)!important}
+  .hero-sub{font-size:clamp(14px, 3.5vw, 17px)!important}
+  .authors{gap:4px 12px}
+  .actions{gap:6px}
+  .btn{padding:5px 10px;font-size:9px}
 }
 
 .hero .meta{
@@ -204,12 +179,12 @@ p{margin:0 auto 1em;max-width:var(--max-prose)}
 
 /* Title — Distill-style sans-serif */
 .hero-title{
-  margin:0 auto 20px;
+  margin:0 auto 10px;
   position:relative;
   max-width:100%;
   font-family:"IBM Plex Sans",sans-serif;
   font-weight:700;
-  font-size:clamp(27px,2.8vw,48px);
+  font-size:clamp(28px, 3.5vw, 42px);
   line-height:1.25;
   letter-spacing:-.005em;
   color:var(--ink);
@@ -218,35 +193,35 @@ p{margin:0 auto 1em;max-width:var(--max-prose)}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
 .hero-sub{
-  font-size:clamp(22px,2.4vw,26px);
-  line-height:1.45;
+  font-size:clamp(16px, 1.8vw, 22px);
+  line-height:1.4;
   color:var(--ink-2);
-  max-width:60ch;
-  margin:0 auto 22px;
+  max-width:72ch;
+  margin:0 auto 14px;
 }
 
 /* Authors & affiliations (centered) */
 .authors{
   font-family:"IBM Plex Sans",sans-serif;
-  font-size:clamp(13px,1.1vw,18px);
+  font-size:clamp(13px, 1vw, 15px);
   color:var(--ink-2);
-  margin:0 auto 6px;
+  margin:0 auto 4px;
   max-width:64ch;
-  display:flex;flex-wrap:wrap;justify-content:center;gap:5px 22px;
+  display:flex;flex-wrap:wrap;justify-content:center;gap:4px 16px;
 }
 .authors .author{display:inline-flex;align-items:baseline;gap:2px;white-space:nowrap}
 .authors .break{flex-basis:100%;height:0}
-.authors sup{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--accent);font-weight:500}
+.authors sup{font-family:"JetBrains Mono",monospace;font-size:8px;color:var(--accent);font-weight:500;vertical-align:super}
 .affil{
-  font-size:clamp(11px,0.9vw,15px);color:var(--ink-3);
-  margin:0 auto 12px;
+  font-size:clamp(11px, 0.8vw, 13px);color:var(--ink-3);
+  margin:0 auto 10px;
   max-width:72ch;
   display:flex;flex-wrap:wrap;justify-content:center;gap:4px 18px;
 }
 .affil span sup{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--accent);margin-right:4px}
 
 /* Action buttons */
-.actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
 .btn{
   display:inline-flex;align-items:center;gap:8px;
   padding:6px 12px;
@@ -275,13 +250,14 @@ p{margin:0 auto 1em;max-width:var(--max-prose)}
 
 .hero-rule{
   max-width:1400px;
-  margin:24px auto;
+  margin:28px auto 16px;
   height:1px;
   background:var(--pink);
 }
 
 .hero-video{
   max-width:var(--max);
+  width:100%;
   aspect-ratio:auto;
   border-radius:8px;
   box-shadow:
@@ -558,8 +534,6 @@ footer .tri{display:inline-block;width:0;height:0;border-left:5px solid var(--ac
 <body>
 
 <header class="hero" id="top">
-  <!-- Decorative animated triangle mesh (top-right) -->
-  <!-- Decorative animated triangle band — rendered with the paper's 2D SDF window function -->
   <div class="hero-mesh" aria-hidden="true">
     <canvas id="hero-mesh"></canvas>
   </div>
@@ -568,10 +542,11 @@ footer .tri{display:inline-block;width:0;height:0;border-left:5px solid var(--ac
     <h1 class="hero-title reveal d2">Triangle Splatting SLAM</h1>
 
     <div class="authors reveal d3">
-      <span class="author">Nicholas Fry<sup>1</sup></span>
+      <span class="author">Nicholas Fry<sup>1,2</sup></span>
       <span class="author">Eric Dexheimer<sup>2</sup></span>
       <span class="author">Kirill Mazur<sup>2</sup></span>
-      <span class="break"></span><span class="author">Paul H. J. Kelly<sup>1</sup></span>
+      <span class="break"></span>
+      <span class="author">Paul H. J. Kelly<sup>1,2</sup></span>
       <span class="author">Andrew J. Davison<sup>2</sup></span>
     </div>
     <div class="affil reveal d4">
@@ -597,13 +572,10 @@ footer .tri{display:inline-block;width:0;height:0;border-left:5px solid var(--ac
     </div>
 
     <div class="hero-rule"></div>
-    <p style="font-size:14px;color:var(--ink-2);margin:0 auto 12px;max-width:var(--max-prose)">A dense RGB-D SLAM system using <strong>differentiable triangles</strong> as the 3D map representation, with <strong>on-the-fly mesh extraction.</strong></p>
     <div class="teaser-frame hero-video">
       <video src="assets/clip2.mp4" autoplay loop muted playsinline></video>
     </div>
   </div>
-
-
 </header>
 
 <!-- Demonstrations -->
@@ -693,38 +665,28 @@ footer .tri{display:inline-block;width:0;height:0;border-left:5px solid var(--ac
 <!-- No external libs needed for the serif-title variant -->
 <script>
 /* ==========================================================================
-   1) Hero mesh — full-width band of triangles, fills rendered via the 2D SDF
-      window function from Held et al.'s Triangle Splatting paper.
-   --------------------------------------------------------------------------
-   For each triangle with vertices v0, v1, v2 (CCW):
-     - n_i, d_i  : outward unit normal & offset of edge i
-     - L_i(p)    = n_i · p + d_i      (signed distance to edge i)
-     - phi(p)    = max_i L_i(p)        (2D SDF, negative inside)
-     - s         = incenter (where phi is minimised)
-     - phi_s     = phi(s)              (= -inradius)
-     - I(p)      = ReLU(phi(p) / phi_s)^sigma
-   I(p) = 1 at incenter, decays smoothly to 0 at edges, 0 outside.
-   We use I to interpolate a coolwarm-style colormap (blue → white → pink).
+   1) Hero mesh — full-width band of triangles at the top, rendered with the
+      2D SDF window function from the Triangle Splatting paper.
    ========================================================================== */
 function buildHeroMesh() {
   const canvas = document.getElementById('hero-mesh');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
 
-  let verts = [], tris = [], filled = [], W = 0, H = 0, rafId = 0;
-  const SIGMA = 0.5;       // window-function exponent (matches paper's reference)
-  const FILL_FRAC = 0.55;  // fraction of triangles rendered with SDF fill
-  const FILL_ALPHA = 0.7;  // constant alpha inside the triangle
+  let verts = [], tris = [], filled = [], W = 0, H = 0;
+  const SIGMA = 0.5;
+  const FILL_FRAC = 0.55;
+  const FILL_ALPHA = 0.7;
 
   function generate() {
     const rect = canvas.getBoundingClientRect();
     W = Math.max(800, Math.round(rect.width));
-    H = Math.max(160, Math.round(rect.height));
+    H = Math.max(120, Math.round(rect.height));
     canvas.width = W;
     canvas.height = H;
 
     const COLS = Math.max(10, Math.round(W / 110));
-    const ROWS = Math.max(4,  Math.round(H / 70));
+    const ROWS = Math.max(3,  Math.round(H / 70));
     const cellW = W / (COLS - 1);
     const cellH = H / (ROWS - 1);
 
@@ -742,8 +704,8 @@ function buildHeroMesh() {
           p2x: Math.random() * Math.PI * 2,
           p1y: Math.random() * Math.PI * 2,
           p2y: Math.random() * Math.PI * 2,
-          ax:  Math.min(cellW, 22) * (0.6 + Math.random() * 0.6),
-          ay:  Math.min(cellH, 22) * (0.6 + Math.random() * 0.6),
+          ax: Math.min(cellW, 22) * (0.6 + Math.random() * 0.6),
+          ay: Math.min(cellH, 22) * (0.6 + Math.random() * 0.6),
           x: 0, y: 0
         });
       }
@@ -766,37 +728,31 @@ function buildHeroMesh() {
       }
     }
 
-    // Pick which triangles get the SDF fill
     filled = [];
     for (let i = 0; i < tris.length; i++) {
       if (Math.random() < FILL_FRAC) filled.push(i);
     }
   }
 
-  // Coolwarm-style colormap pinned to the page palette (blue → white → pink).
-  // I in [0, 1]; writes RGB into the buffer at offset.
-  // Value 1 → pink centre, 0.5 → near-white, 0 → blue edge.
   function colorAt(I, out) {
     if (I < 0.5) {
-      const t = I * 2;          // 0 → 1 across [0, 0.5]
+      const t = I * 2;
       out[0] = 59  + (255 - 59)  * t;
       out[1] = 130 + (245 - 130) * t;
       out[2] = 246 + (235 - 246) * t;
     } else {
-      const t = (I - 0.5) * 2;  // 0 → 1 across [0.5, 1]
+      const t = (I - 0.5) * 2;
       out[0] = 255 + (236 - 255) * t;
       out[1] = 245 + (72  - 245) * t;
       out[2] = 235 + (153 - 235) * t;
     }
   }
 
-  // Render the 2D SDF window function for one triangle, blending into imageData.
   function rasterSDF(data, W, H, va, vb, vc) {
     let v0x = va.x, v0y = va.y;
     let v1x = vb.x, v1y = vb.y;
     let v2x = vc.x, v2y = vc.y;
 
-    // Force CCW orientation so normals point outward
     const cross = (v1x - v0x) * (v2y - v0y) - (v1y - v0y) * (v2x - v0x);
     if (cross < 0) {
       const tx = v1x, ty = v1y;
@@ -804,7 +760,6 @@ function buildHeroMesh() {
       v2x = tx;  v2y = ty;
     }
 
-    // Outward unit normals + offsets for each edge
     let e0x = v1x - v0x, e0y = v1y - v0y;
     let e1x = v2x - v1x, e1y = v2y - v1y;
     let e2x = v0x - v2x, e2y = v0y - v2y;
@@ -817,7 +772,6 @@ function buildHeroMesh() {
     const d1 = -(n1x * v1x + n1y * v1y);
     const d2 = -(n2x * v2x + n2y * v2y);
 
-    // Incenter — weighted sum of vertices by opposite-edge length
     const len0 = Math.hypot(e0x, e0y);
     const len1 = Math.hypot(e1x, e1y);
     const len2 = Math.hypot(e2x, e2y);
@@ -830,9 +784,8 @@ function buildHeroMesh() {
       n1x * sx + n1y * sy + d1,
       n2x * sx + n2y * sy + d2
     );
-    if (phi_s >= -0.5) return; // degenerate sliver — skip
+    if (phi_s >= -0.5) return;
 
-    // Bounding box
     const minX = Math.max(0,     Math.floor(Math.min(v0x, v1x, v2x)));
     const minY = Math.max(0,     Math.floor(Math.min(v0y, v1y, v2y)));
     const maxX = Math.min(W - 1, Math.ceil (Math.max(v0x, v1x, v2x)));
@@ -841,14 +794,13 @@ function buildHeroMesh() {
     const inv_phi_s = 1 / phi_s;
     const rgb = [0, 0, 0];
 
-    // Per-pixel SDF, window function, colormap
     for (let y = minY; y <= maxY; y++) {
       for (let x = minX; x <= maxX; x++) {
         const L0 = n0x * x + n0y * y + d0;
         const L1 = n1x * x + n1y * y + d1;
         const L2 = n2x * x + n2y * y + d2;
         const phi = (L0 > L1 ? (L0 > L2 ? L0 : L2) : (L1 > L2 ? L1 : L2));
-        if (phi > 0) continue; // outside
+        if (phi > 0) continue;
 
         let ratio = phi * inv_phi_s;
         if (ratio < 0) ratio = 0;
@@ -857,9 +809,6 @@ function buildHeroMesh() {
 
         colorAt(I, rgb);
 
-        // Constant alpha inside the triangle (matches the paper figure's hard
-        // mask). The whole coolwarm gradient is now visible from blue at edges
-        // through near-white to pink at the centre.
         const idx = (y * W + x) * 4;
         data[idx]     = rgb[0];
         data[idx + 1] = rgb[1];
@@ -874,7 +823,6 @@ function buildHeroMesh() {
     if (!start) start = t;
     const dt = t - start;
 
-    // Update vertex positions
     for (let i = 0; i < verts.length; i++) {
       const v = verts[i];
       v.x = v.bx
@@ -885,7 +833,6 @@ function buildHeroMesh() {
           + Math.cos(dt * v.f2y + v.p2y) * v.ay * 0.55;
     }
 
-    // Build a transparent ImageData buffer; rasterise SDF fills into it
     const imgData = ctx.createImageData(W, H);
     const data = imgData.data;
     for (let i = 0; i < filled.length; i++) {
@@ -895,7 +842,6 @@ function buildHeroMesh() {
     }
     ctx.putImageData(imgData, 0, 0);
 
-    // Stroke every triangle on top — same hairline style as the SVG version
     ctx.strokeStyle = 'rgba(14, 14, 14, 0.5)';
     ctx.lineWidth = 0.6;
     ctx.lineJoin = 'round';
@@ -910,11 +856,11 @@ function buildHeroMesh() {
     }
     ctx.stroke();
 
-    rafId = requestAnimationFrame(tick);
+    requestAnimationFrame(tick);
   }
 
   generate();
-  rafId = requestAnimationFrame(tick);
+  requestAnimationFrame(tick);
 
   let resizeTimer;
   window.addEventListener('resize', () => {
@@ -940,7 +886,18 @@ function copyBibtex() {
 /* ==========================================================================
    Boot
    ========================================================================== */
+function sizeMeshToRule() {
+  const hero = document.getElementById('top');
+  const rule = hero && hero.querySelector('.hero-rule');
+  const mesh = hero && hero.querySelector('.hero-mesh');
+  if (rule && mesh) {
+    mesh.style.setProperty('--mesh-h', rule.offsetTop + rule.offsetHeight + 'px');
+  }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
+  sizeMeshToRule();
+  window.addEventListener('resize', sizeMeshToRule);
   buildHeroMesh();
 
   document.querySelectorAll('.demo-tab').forEach(tab => {
