@@ -1,6 +1,6 @@
 # Triangle Splatting SLAM — Project Page
 
-![Teaser](kitsugislam_tidy-cropped.pdf)
+![Teaser](teaser_readme.png)
 
 Static project page for *Triangle Splatting SLAM* (Fry, Dexheimer, Mazur, Kelly, Davison — Imperial College London).
 
