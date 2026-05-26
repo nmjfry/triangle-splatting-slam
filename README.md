@@ -1,5 +1,7 @@
 # Triangle Splatting SLAM — Project Page
 
+**[Paper (PDF)](kitsugislam_tidy-cropped.pdf)**
+
 Static project page for *Triangle Splatting SLAM* (Fry, Dexheimer, Mazur, Kelly, Davison — Imperial College London).
 
 A single static HTML site, ready to deploy to GitHub Pages with no build step.
