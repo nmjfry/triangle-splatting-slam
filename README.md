@@ -1,8 +1,8 @@
-# Triangle Splatting SLAM — Project Page
+# Triangle Splatting SLAM (Project Page)
 
 ![Teaser](teaser_readme.png)
 
-Static project page for *Triangle Splatting SLAM* (Fry, Dexheimer, Mazur, Kelly, Davison — Imperial College London).
+Static project page for *Triangle Splatting SLAM* (Fry, Dexheimer, Mazur, Kelly, Davison - Imperial College London).
 
 A single static HTML site, ready to deploy to GitHub Pages with no build step.
 
@@ -21,7 +21,6 @@ The `.nojekyll` file in the root is included so GitHub Pages serves files as-is,
 | File                      | Purpose                                                                       |
 | ------------------------- | ----------------------------------------------------------------------------- |
 | `index.html`              | Main page with the Delaunay-triangulated title.                               |
-| `index-serif.html`        | Alternate version with a plain sans-serif title (Distill-style).              |
 | `assets/method.webp/.jpg` | System diagram figure. WebP for modern browsers, JPEG fallback.               |
 | `assets/method.pdf`       | Vector source of the system diagram (kept for camera-ready use).              |
 | `assets/teaser.webp/.jpg` | Teaser image at the top of the Abstract.                                      |
