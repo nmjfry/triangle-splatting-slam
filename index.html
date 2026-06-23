@@ -122,7 +122,7 @@ p{margin:0 auto 1em;max-width:var(--max-prose)}
   display:flex;
   flex-direction:column;
   justify-content:flex-start;
-  padding:30px 0 100px;
+  padding:30px 0 40px;
   border-top:none;
   overflow:hidden;
 }
@@ -572,6 +572,7 @@ footer .tri{display:inline-block;width:0;height:0;border-left:5px solid var(--ac
 
   <div class="wrap">
     <h1 class="hero-title reveal d2">Triangle Splatting SLAM</h1>
+    <p class="eccv-tag reveal d2" style="font-family:'IBM Plex Sans',sans-serif;font-weight:600;font-size:clamp(16px,2.2vw,22px);color:var(--ink-2);margin:0 auto 20px;letter-spacing:.01em;">ECCV 2026</p>
 
     <div class="authors reveal d3">
       <span class="author"><a href="https://nmjfry.github.io/" target="_blank" rel="noopener">Nicholas Fry</a><sup>1,2</sup></span>
@@ -610,12 +611,6 @@ footer .tri{display:inline-block;width:0;height:0;border-left:5px solid var(--ac
     <p class="caption" style="margin-top:12px">A dense RGB-D SLAM system with <strong>differentiable triangles</strong> as the 3D map representation, for <strong>on-the-fly mesh extraction.</strong></p>
   </div>
 
-  <a class="scroll-cue" href="#method-figure" aria-label="Scroll for more">
-    <span>Scroll for more</span>
-    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M3 6l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </a>
 </header>
 
 <!-- Method -->
@@ -977,14 +972,6 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  const cue = document.querySelector('.scroll-cue');
-  if (cue) {
-    cue.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = document.getElementById('method-figure');
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    });
-  }
 });
 </script>
 </body>
